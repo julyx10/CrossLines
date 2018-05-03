@@ -15,7 +15,7 @@ import random
 
 # const value
 consts = {
-    "screen_size": (800, 600),
+    "screen_size": (300, 200),
     "margin": 16,                # space between the main window and the play area
     "vertex_size": 18,           # diameter of the vertex circus
     "fps": 30,                   # frames per second
@@ -44,6 +44,10 @@ resources = {
     "ball_b":       'Res\\google_blue_32.png',
 }
 
+game_levels = {
+    "easy": (6, 7, 8, 9, 10),
+    "hard": (10, 11, 12, 13, 14, 15, 16, 18, 19, 20),
+}
 
 class GameInfo:
     def __init__(self, game_rect):
@@ -402,6 +406,7 @@ def main():
                 if game_rect.collidepoint(pos) and gi.selected_id >= 0 and gi.finished is False:
                     gi.vertexes[gi.selected_id].cur_pos = [pos[0], pos[1]]
                     gi.vertexes[gi.selected_id].play_pos = gi.vertexes[gi.selected_id].cur_pos[:]
+                    gi.auto_move = False
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if gi.finished: # start a new game
@@ -412,7 +417,6 @@ def main():
 
             elif event.type == pygame.MOUSEBUTTONUP:
                 gi.selected_id = -1
-                gi.auto_move = False
 
         # fill screen buffer with background
         screen_new = screen.copy()
